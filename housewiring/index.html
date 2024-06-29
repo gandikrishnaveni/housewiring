@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Wiring</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            background-color: #34495e;
+            overflow: auto;
+        }
+
+        header {
+            background-image: url('homepage.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            position: relative;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 3;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #e74c3c;
+        }
+
+        nav {
+            margin-top: 20px;
+            color:white
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            color: white;
+        }
+
+        nav ul li {
+            margin: 10px;
+            color: white;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            background-color: #34495e;
+            padding: 12px 25px;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #1abc9c;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            margin: 0;
+            color: white;
+        }
+
+        .hero h2::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 2px;
+            background: white;
+            margin: 20px auto 0;
+        }
+
+        .content {
+            padding: 20px;
+            background-color: #34495e;
+            color: white;
+            text-align: center;
+            overflow: auto;
+            line-height: 1.6;
+        }
+
+        .content li {
+            margin-bottom: 10px;
+        }
+
+        .section {
+            padding: 60px 20px;
+            display: none;
+            min-height: 100vh;
+            position: relative;
+            background-image: url('lighte.jpg');
+            background-size: cover;
+            background-position: center;
+            overflow: auto;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h1,
+        .section p,
+        .back-button {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            text-align: center;
+        }
+
+        .section h1 {
+            color: #e74c3c;
+        }
+
+        .section p,
+        .section ul li {
+            color: #fff;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #34495e;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #1abc9c;
+        }
+
+        .house-wiring-content,
+        .rules-content,
+        .precautions-content,
+        .tools-content,
+        .circuit-symbols-content,
+        .earthing-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            color: #fff;
+        }
+
+        .section .content {
+            margin-top: 20px; /* Adjust margin as needed */
+        }
+
+        .section .content img {
+            width: 100%;
+            height: auto;
+            margin: 10px;
+            max-width: 300px; /* Adjust this value as needed */
+            max-height: 300px; /* Adjust this value as needed */
+        }
+
+        .circuit-symbols-content img {
+            width: 100%;
+            height: auto;
+        }
+
+        .tools-content img {
+            width: 150px;
+            height: auto;
+            margin: 10px;
+            max-width: 150px; /* Adjust this value as needed */
+            max-height: 150px; /* Adjust this value as needed */
+        }
+
+        .tools-content .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tools-content .tools-grid div {
+            flex: 1 1 30%;
+            text-align: center;
+        }
+
+        .tools-content .tools-grid div h3 {
+            color:white;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            document.querySelector('header').style.display = 'none';
+            document.querySelector('.content').style.display = 'none';
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function goBack() {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            document.querySelector('header').style.display = 'block';
+            document.querySelector('.content').style.display = 'block';
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>House Wiring</h1>
+            </div>
+            <div class="hero">
+                <h2>Learn everything about House Wiring in detail</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="javascript:void(0)" onclick="showSection('housewiring')">House Wiring</a></li>
+                    <li><a href="javascript:void(0)" onclick="showSection('rules')">Rules for House Wiring</a></li>
+                    <li><a href="javascript:void(0)" onclick="showSection('precautions')">Precautions</a></li>
+                    <li><a href="javascript:void(0)" onclick="showSection('tools')">House Wiring Tools</a></li>
+                    <li><a href="javascript:void(0)" onclick="showSection('symbols')">Circuit Symbols</a></li>
+                    <li><a href="javascript:void(0)" onclick="showSection('earthing')">Earthing</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="content">
+        <p>Done by:</p>
+        <li>23241A0575 B.Vasavi</li>
+        <li>23241A0586 G.Krishnaveni</li>
+        <li>23241A0570 B.Ramya</li>
+        <li>23241A0571 B.Soumya</li>
+    </div>
+
+    <div id="housewiring" class="section house-wiring-section">
+        <div class="house-wiring-content">
+            <h1>House Wiring</h1>
+            <p>House wiring refers to the electrical system that provides power and connectivity throughout a residential building. It is a network of wires, cables, switches, outlets, and other electrical components that allow electricity to flow and power various devices and appliances in a home. The purpose of house wiring is to distribute electrical power from the main source, such as the service panel or mains, to different areas of the house, ensuring that each room has access to electricity.</p>
+            <div class="content">
+                <img src="homeee.jpg" alt="House Wiring Image 1">
+                <img src="housewiring2.jpeg" alt="House Wiring Image 2">
+            </div>
+            <p>House wiring is a crucial aspect of any residential building, providing electrical power and connectivity to various devices and appliances. It involves the installation of a network of wires that distribute electricity throughout the house.There are different types of house wiring systems available, including traditional knob and tube wiring, aluminium wiring and modern systems like PVC and copper wiring. Each type has its own features and applications, making it important to choose the right type for your specific needs.</p>
+            
+            <a href="javascript:void(0)" class="back-button" onclick="goBack()">Back</a>
+        </div>
+    </div>
+
+    <div id="rules" class="section rules-section">
+        <div class="rules-content">
+            <h1>Rules for House Wiring</h1>
+            <p>When planning and installing house wiring, there are several important rules and regulations to follow to ensure safety and compliance with electrical codes. Here are some key points to consider:</p>
+            <ul>
+                <li>Ensure all wiring is done according to the local electrical codes and regulations.</li>
+                <li>Use the appropriate type and gauge of wire for each application.</li>
+                <li>Install circuit breakers and fuse boxes according to the load requirements.</li>
+                <div class="content">
+                    <img src="rules1.png" alt="Rules Image 1">
+                    <img src="rules2.jp.jpg" alt="Rules Image 2">
+                </div>
+                <li>Label all circuits clearly to indicate their purpose.</li>
+                <li>Ensure proper grounding and bonding of the electrical system.</li>
+                <li>Regularly inspect and maintain the wiring system to prevent issues.</li>
+            </ul>
+            <!-- <div class="content">
+                <img src="rules1.png" alt="Rules Image 1">
+                <img src="rules2.jp.jpg" alt="Rules Image 2">
+            </div> -->
+            <a href="javascript:void(0)" class="back-button" onclick="goBack()">Back</a>
+        </div>
+    </div>
+
+    <div id="precautions" class="section precautions-section">
+        <div class="precautions-content">
+            <h1>Precautions of House Wiring</h1>
+            <p>House wiring involves working with electrical systems, which can be hazardous if not handled properly. To ensure safety, it is important to follow these precautions:</p>
+            <ul>
+                <li>Always turn off the power supply before starting any wiring work to avoid electric shock.</li>
+                <li>Use insulated tools and wear rubber-soled shoes to reduce the risk of electrical shock.</li>
+                <li>Ensure that all wiring connections are secure and properly insulated to prevent short circuits and fires.</li>
+                <li>Do not overload electrical circuits; distribute the load evenly across multiple circuits.</li>
+                <div class="content">
+                    <img src="precautions1.jpg" alt="Precautions Image 1">
+                    <img src="precautions2.jpg" alt="Precautions Image 2">
+                </div>
+                <li>Avoid running electrical cables through areas where they can be easily damaged, such as under carpets or through doorways.</li>
+                <li>Use cable clamps and other protective devices to secure and protect electrical cables.</li>
+                <li>Regularly inspect the wiring system for signs of wear, damage, or overheating, and address any issues promptly.</li>
+                <li>Hire a licensed electrician for any complex or high-voltage wiring tasks to ensure proper installation and compliance with safety standards.</li>
+            </ul>
+            <!-- <div class="content">
+                <img src="precautions1.jpg" alt="Precautions Image 1">
+                <img src="precautions2.jpg" alt="Precautions Image 2">
+            </div> -->
+            <a href="javascript:void(0)" class="back-button" onclick="goBack()">Back</a>
+        </div>
+    </div>
+
+    <div id="tools" class="section tools-section">
+        <div class="tools-content">
+            <h1>House Wiring Tools</h1>
+            <p>Having the right tools is essential for any house wiring project. Here are some of the key tools you will need:</p>
+            <div class="tools-grid">
+                <div>
+                    <img src="screwdr.jpg" alt="Screwdriver">
+                    <h3>Screwdriver</h3>
+                </div>
+                <div>
+                    <img src="hammer.avif" alt="Hammer">
+                    <h3>Hammer</h3>
+                </div>
+                <div>
+                    <img src="plier.jpg" alt="Plier">
+                    <h3>Plier</h3>
+                </div>
+                <div>
+                    <img src="mallet.jpg" alt="Mallet">
+                    <h3>Mallet</h3>
+                </div>
+                <div>
+                    <img src="bulb.jpg" alt="Bulb">
+                    <h3>Bulb</h3>
+                </div>
+                <div>
+                    <img src="chiiise.jpg" alt="Chisel">
+                    <h3>Chisel</h3>
+                </div>
+                
+            </div>
+            <a href="javascript:void(0)" class="back-button" onclick="goBack()">Back</a>
+        </div>
+    </div>
+
+    <div id="symbols" class="section circuit-symbols-section">
+        <div class="circuit-symbols-content">
+            <h1>Circuit Symbols</h1>
+            <p>Understanding circuit symbols is crucial for reading and creating electrical diagrams. Here are some common symbols used in house wiring:</p>
+            <img src="circuity.jpg" alt="Circuit Symbols">
+        </div>
+        <a href="javascript:void(0)" class="back-button" onclick="goBack()">Back</a>
+    </div>
+
+    <div id="earthing" class="section earthing-section">
+        <div class="earthing-content">
+            <h1>Earthing</h1>
+            <p>Earthing, or grounding, is an important safety feature in house wiring. It provides a safe path for electrical current to travel in case of a fault, preventing electric shock and protecting appliances. Here are some key points about earthing:</p>
+            <ul>
+                <li>Earthing provides a path for fault current to flow to the ground, preventing electric shock.</li>
+                <li>Proper earthing helps protect electrical appliances from damage due to power surges or faults.</li>
+                <li>Use appropriate earthing materials, such as copper or galvanized steel, for effective grounding.</li>
+                <div class="content">
+                    <img src="earthing1.jpg" alt="Earthing Image 1">
+                    <img src="earthing2.jpg" alt="Earthing Image 2">
+                </div>
+                <li>Ensure that the earthing system is securely connected to the main service panel and all electrical outlets.</li>
+                <li>Regularly inspect the earthing system for any signs of corrosion or damage, and repair as needed.</li>
+                <li>Hire a licensed electrician to install and inspect the earthing system to ensure compliance with safety standards.</li>
+            </ul>
+            
+            <a href="javascript:void(0)" class="back-button" onclick="goBack()">Back</a>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+
